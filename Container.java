@@ -11,39 +11,51 @@ public class Container {
     private ArrayList<Package> packages;
 
 
-    /**
-     * Full constructor with destination and max weight.
-     * TODO M2: Implement this constructor.
-     *   - Validate: destination non-null, maxWeightKg > 0
-     *   - Auto-assign containerId using String.format("CNT-%03d", nextContainerId)
-     *   - Increment nextContainerId
-     *   - Initialise the packages ArrayList
-     */
+    // M2: full constructor
     public Container(String destination, double maxWeightKg) {
-        // TODO M2
+
+        if (destination == null) {
+            throw new IllegalArgumentException("Destination must not be null");
+        }
+
+        if (maxWeightKg <= 0) {
+            throw new IllegalArgumentException("Max weight must be greater than 0");
+        }
+
+        this.containerId = String.format("CNT-%03d", nextContainerId);
+        nextContainerId++;
+
+        this.destination = destination;
+        this.maxWeightKg = maxWeightKg;
+        this.packages = new ArrayList<Package>();
     }
 
-    /**
-     * Convenience constructor: default capacity of 500 kg.
-     * TODO M3: Chain to the 2-param constructor using this(...)
-     */
+    // M3: shorter constructor, default capacity is 500 kg
     public Container(String destination) {
-        // TODO M3: Write the this(...) call here
+        this(destination, 500.0);
     }
 
-    // --- Getters ---
-    // TODO M4: Write getters for containerId, destination, maxWeightKg
+    // M4: getters
+    public String getContainerId() {
+        return containerId;
+    }
+    public String getDestination() {
+        return destination;
+    }
+    public double getMaxWeightKg() {
+        return maxWeightKg;
+    }
 
-    /**
-     * TODO M8: Add a package to this container.
-     *   Return false if: p is null, p's destination does not match, or
-     *   adding p would exceed maxWeightKg.
-     *   Return true on success.
-     */
+
+
+
     public boolean addPackage(Package p) {
         return false; // TODO M8
     }
 
+
+
+    
     /**
      * TODO M8: Return the sum of all packages' weightKg.
      */
