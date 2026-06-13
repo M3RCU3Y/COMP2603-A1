@@ -1,21 +1,15 @@
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Represents a single cargo item in the Caribbean freight system.
- * Each package is auto-assigned a unique tracking ID in the format PKG-XXXX.
- */
 public class Package {
 
-    // M1 - staticcounter to 1
+    // M1 - static counter to 1
     private static int nextTrackingNumber = 1;
 
     private static final List<String> VALID_DESTINATIONS = Arrays.asList(
         "Trinidad", "Barbados", "Jamaica", "Antigua", "Grenada"
     );
 
-    // TODO M1: These fields are declared but not yet assigned.
-    // Your constructors (M2, M3) must assign them.
     private String trackingId;
     private String senderName;
     private String receiverName;
@@ -26,7 +20,57 @@ public class Package {
     private String destination;
     private boolean isFragile;
     private double declaredValue;
-    /**
+
+
+
+    // M2 constructor implemented
+
+    public Package(String senderName, String receiverName, double weightKg,
+                   int lengthCm, int widthCm, int heightCm,
+                   String destination, boolean isFragile, double declaredValue) {
+
+        // checks for: 
+        // sender
+        //reciver
+        // weight
+        // dimensions
+        // destination
+        // sender
+        if (senderName == null || senderName.equals("")) {
+            throw new IllegalArgumentException("Sender name must not be null or empty");
+        }
+
+        if (receiverName == null || receiverName.equals("")) {
+            throw new IllegalArgumentException("Receiver name must not be null or empty");
+        }
+
+       
+        if (weightKg <= 0)  {
+            throw new IllegalArgumentException("Weight must be greater than 0");
+        }
+
+        if (lengthCm <= 0 || widthCm <= 0 || heightCm <= 0) {
+            throw new IllegalArgumentException("Dimensions must be greater than 0");
+        }
+
+        if (!VALID_DESTINATIONS.contains(destination)) {
+            throw new IllegalArgumentException("Invalid destination");
+        }
+
+        this.senderName = senderName;
+        this.receiverName = receiverName;
+        this.weightKg = weightKg;
+        this.lengthCm = lengthCm;
+        this.widthCm = widthCm;
+        this.heightCm = heightCm;
+        this.destination = destination;
+        this.isFragile = isFragile;
+        this.declaredValue = declaredValue;
+
+    }
+    
+    
+                    /**
      * Full constructor with all 9 parameters.
      * TODO M2: Implement this constructor.
      *   - Validate: senderName and receiverName non-null and non-empty
@@ -38,11 +82,7 @@ public class Package {
      *   - Increment nextTrackingNumber
      *   - Assign all fields
      */
-    public Package(String senderName, String receiverName, double weightKg,
-                   int lengthCm, int widthCm, int heightCm,
-                   String destination, boolean isFragile, double declaredValue) {
-        // TODO M2: Write validation and field assignments here
-    }
+
 
     /**
      * Convenience constructor: not fragile, no declared value.
