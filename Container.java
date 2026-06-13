@@ -1,20 +1,15 @@
 import java.util.ArrayList;
 
-/**
- * Represents a shipping container bound for a single destination.
- * Holds packages and enforces a maximum weight capacity.
- */
 public class Container {
 
-    // TODO M1: Initialise this static counter to 1.
-    private static int nextContainerId;
+    // M1 - static counter starts at 1
+    private static int nextContainerId = 1;
 
-    // TODO M1: These fields are declared but not yet assigned.
-    // Your constructors (M2, M3) must assign them.
     private String containerId;
     private String destination;
     private double maxWeightKg;
     private ArrayList<Package> packages;
+
 
     /**
      * Full constructor with destination and max weight.
