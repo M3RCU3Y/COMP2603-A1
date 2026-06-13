@@ -7,8 +7,8 @@ import java.util.List;
  */
 public class Package {
 
-    // TODO M1: Initialise this static counter to 1.
-    private static int nextTrackingNumber;
+    // M1 - staticcounter to 1
+    private static int nextTrackingNumber = 1;
 
     private static final List<String> VALID_DESTINATIONS = Arrays.asList(
         "Trinidad", "Barbados", "Jamaica", "Antigua", "Grenada"
@@ -26,7 +26,6 @@ public class Package {
     private String destination;
     private boolean isFragile;
     private double declaredValue;
-
     /**
      * Full constructor with all 9 parameters.
      * TODO M2: Implement this constructor.
