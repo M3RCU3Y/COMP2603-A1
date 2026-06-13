@@ -44,7 +44,6 @@ public class Package {
             throw new IllegalArgumentException("Receiver name must not be null or empty");
         }
 
-       
         if (weightKg <= 0)  {
             throw new IllegalArgumentException("Weight must be greater than 0");
         }
@@ -67,31 +66,18 @@ public class Package {
         this.isFragile = isFragile;
         this.declaredValue = declaredValue;
 
+        // tracking number
+        this.trackingId = String.format("PKG-%04d", nextTrackingNumber);
+        nextTrackingNumber++;
     }
-    
-    
-                    /**
-     * Full constructor with all 9 parameters.
-     * TODO M2: Implement this constructor.
-     *   - Validate: senderName and receiverName non-null and non-empty
-     *   - Validate: weightKg > 0
-     *   - Validate: all dimensions > 0
-     *   - Validate: destination is in VALID_DESTINATIONS
-     *   - Throw IllegalArgumentException on any failure
-     *   - Auto-assign trackingId using String.format("PKG-%04d", nextTrackingNumber)
-     *   - Increment nextTrackingNumber
-     *   - Assign all fields
-     */
 
+    // M3: shorter constructor
 
-    /**
-     * Convenience constructor: not fragile, no declared value.
-     * TODO M3: Chain to the full constructor using this(...) with
-     *   isFragile=false and declaredValue=0.0
-     */
     public Package(String senderName, String receiverName, double weightKg,
                    int lengthCm, int widthCm, int heightCm, String destination) {
-        // TODO M3: Write the this(...) call here
+
+        this(senderName, receiverName, weightKg, lengthCm, widthCm, heightCm,
+             destination, false, 0.0);
     }
 
     // --- Getters ---
