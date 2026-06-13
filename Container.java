@@ -105,15 +105,11 @@ public class Container {
             text.append("  ");
             text.append(p.toString());
         }
-        
+
         text.append("\n");
         text.append(String.format("  Container revenue: $%.2f", getTotalRevenue()));
         return text.toString();
     }
-//todo frieght terminal thing
-    /**
-     * Returns the list of packages (needed by FreightTerminal.findPackage).
-     */
 
     public ArrayList<Package> getPackages() {
         return packages;

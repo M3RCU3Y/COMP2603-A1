@@ -127,15 +127,7 @@ public class Package {
         return Math.max(weightKg, getVolumetricWeightKg());
     }
 
-    /**
-     * TODO M6: Implement the shipping cost formula.
-     *   1. Look up rate per kg by destination
-     *   2. cost = getBillableWeightKg() * ratePerKg
-     *   3. If fragile: cost *= 1.25
-     *   4. If declaredValue > 0: cost += declaredValue * 0.015
-     *   5. Round: Math.round(cost * 100) / 100.0
-     */
-
+    // shipping cost formula M6
     public double getShippingCost() {
     double ratePerKg;
 
