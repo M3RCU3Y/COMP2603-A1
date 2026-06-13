@@ -5,9 +5,60 @@
  * TODO M10: Complete this class so that running "java Driver" produces
  * the exact expected output shown in the README.
  */
+
 public class Driver {
 
     public static void main(String[] args) {
+
+        FreightTerminal terminal = new FreightTerminal("Port of Spain Hub");
+
+        Package p1 = new Package("Alice", "Bob", 5.0, 40, 30, 20, "Trinidad");
+        Package p2 = new Package("Carol", "Dan", 2.0, 60, 40, 40, "Barbados", true, 500);
+        Package p3 = new Package("Eve", "Frank", 10.0, 30, 30, 30, "Jamaica");
+        Package p4 = new Package("Ivy", "Jack", 8.0, 20, 20, 20, "Trinidad", true, 1000);
+
+        System.out.println("Testing receivePackage first...");
+        terminal.receivePackage(p1);
+        terminal.receivePackage(p2);
+        terminal.receivePackage(p3);
+        terminal.receivePackage(p4);
+
+        System.out.println("Pending count should be 4:");
+        System.out.println(terminal.getPendingCount());
+
+        System.out.println();
+        System.out.println("Testing packContainers...");
+        int containersMade = terminal.packContainers();
+
+        System.out.println("Containers made:");
+        System.out.println(containersMade);
+
+
+
+        System.out.println("Pending count after packing:");
+        System.out.println(terminal.getPendingCount());
+        System.out.println();
+        System.out.println("Printing active containers:");
+        for (Container c : terminal.getActiveContainers()) {
+            System.out.println(c);
+        }
+        System.out.println();
+        System.out.println("Testing unfinished findPackage:");
+        Package found = terminal.findPackage("PKG-0001");
+
+        if (found == null) {
+            System.out.println("PKG-0001 not found because findPackage only checks pending right now.");
+        } else {
+
+            
+            System.out.println(found);
+        }
+
+        System.out.println();
+        terminal.printDailyReport();
+    }
+}
+
 
         // Step 1: Create the terminal
         // TODO M10: Create a FreightTerminal named "Port of Spain Hub"
@@ -56,5 +107,3 @@ public class Driver {
 
         // Step 10: Try to find a non-existent package
         // TODO M10: Find "PKG-9999" and print "PKG-9999: Not found" if null
-    }
-}

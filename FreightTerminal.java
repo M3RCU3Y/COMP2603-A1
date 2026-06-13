@@ -30,75 +30,79 @@ public class FreightTerminal {
     public int getPendingCount() {
         return pendingPackages.size();
     }
+        public int packContainers() {
+        // WIP M8:
+        
 
-    /**
-     * TODO M8: This is the HARD method. Group pending packages by destination.
-     *   1. Collect unique destinations in the order they first appear.
-     *   2. For each destination, create a new Container (default capacity).
-     *   3. Add all pending packages for that destination to the container.
-     *   4. Move the container to activeContainers.
-     *   5. Clear pendingPackages.
-     *   6. Return the number of containers created.
-     */
-    public int packContainers() {
-        return 0; // TODO M8
+        ArrayList<String> destinations = new ArrayList<String>();
+
+        for (Package p : pendingPackages) {
+            String dest = p.getDestination();
+
+            if (!destinations.contains(dest)) {
+                destinations.add(dest);
+            }
+        }
+
+        for (String dest : destinations) {
+            Container c = new Container(dest);
+
+            for (Package p : pendingPackages) {
+                if (p.getDestination().equals(dest)) {
+                    c.addPackage(p);
+                }
+            }
+
+            activeContainers.add(c);
+        }
+
+        pendingPackages.clear();
+
+        return destinations.size();
     }
 
-    /**
-     * TODO M9: Move all activeContainers to dispatchedContainers.
-     *   Clear activeContainers. Return the count dispatched.
-     */
     public int dispatchAll() {
-        return 0; // TODO M9
+        // TODO M9:
+        // testing packing
+        return 0;
     }
 
-    /**
-     * TODO M9: Return the sum of getTotalRevenue() across all
-     *   dispatched containers.
-     */
     public double getTotalRevenue() {
-        return 0.0; // TODO M9
+        // TODO M9:
+        return 0.0;
     }
 
-    /**
-     * TODO M9: Return the sum of getPackageCount() across all
-     *   dispatched containers.
-     */
     public int getTotalPackagesShipped() {
-        return 0; // TODO M9
+        // TODO M9:
+        return 0;
     }
 
-    /**
-     * TODO M9: Search pending, active containers, and dispatched
-     *   containers for a package with the given tracking ID.
-     *   Return the Package or null if not found.
-     */
     public Package findPackage(String trackingId) {
-        return null; // TODO M9
+        // WIP M9:
+        // Right now this only searches pending packages.
+        // Later I need to search active and dispatched containers too.
+
+        for (Package p : pendingPackages) {
+            if (p.getTrackingId().equals(trackingId)) {
+                return p;
+            }
+        }
+
+        return null;
     }
 
-    /**
-     * Returns the list of active containers (for printing manifests in Driver).
-     */
     public ArrayList<Container> getActiveContainers() {
         return activeContainers;
     }
 
-    /**
-     * TODO M10: Print the formatted daily report.
-     * Format:
-     *   === Daily Report: Port of Spain Hub ===
-     *   Packages received:  12
-     *   Containers packed:  5
-     *   Packages shipped:   12
-     *   Total revenue:      $3248.50
-     *
-     *   Revenue by destination:
-     *     Trinidad:    $199.50 (3 packages)
-     *     Barbados:    $1403.00 (3 packages)
-     *     ...
-     */
     public void printDailyReport() {
-        // TODO M10
+        // TODO M10:
+        // Temporary debug report, not final assignment format.
+
+        System.out.println("DEBUG REPORT FOR " + terminalName);
+        System.out.println("Pending packages: " + pendingPackages.size());
+        System.out.println("Active containers: " + activeContainers.size());
+        System.out.println("Dispatched containers: " + dispatchedContainers.size());
     }
+
 }
