@@ -90,34 +90,43 @@ public class Container {
         return packages.size();
     }
 
-    /**
-     * TODO M9: Build and return the multi-line manifest string.
-     * Format:
-     *   === CNT-001 -> Trinidad (3 packages, 17.00 / 500.00 kg) ===
-     *     PKG-0001  Alice -> Bob  Trinidad  5.00 kg  $40.00
-     *     PKG-0005  Ivy -> Jack  Trinidad  8.00 kg  $95.00  [FRAGILE]
-     *     ...
-     *     Container revenue: $199.50
-     * Each package line is indented with 2 spaces.
-     * Use StringBuilder and String.format.
-     */
+    // M9: full multi-line manifest
     public String getManifest() {
-        return ""; // TODO M9
-    }
+        StringBuilder text = new StringBuilder();
+        text.append(String.format("=== %s -> %s (%d packages, %.2f / %.2f kg) ===",
+                containerId,
+                destination,
+                getPackageCount(),
+                getCurrentWeightKg(),
+                maxWeightKg));
 
+        for (Package p : packages) {
+            text.append("\n");
+            text.append("  ");
+            text.append(p.toString());
+        }
+        
+        text.append("\n");
+        text.append(String.format("  Container revenue: $%.2f", getTotalRevenue()));
+        return text.toString();
+    }
+//todo frieght terminal thing
     /**
      * Returns the list of packages (needed by FreightTerminal.findPackage).
      */
+
     public ArrayList<Package> getPackages() {
         return packages;
     }
 
-    /**
-     * TODO M9: Return a one-line summary:
-     *   "CNT-001 -> Trinidad [3 packages, 17.00 / 500.00 kg]"
-     */
+    // M9 summary
     @Override
     public String toString() {
-        return ""; // TODO M9
+        return String.format("%s -> %s [%d packages, %.2f / %.2f kg]",
+                containerId,
+                destination,
+                getPackageCount(),
+                getCurrentWeightKg(),
+                maxWeightKg);
     }
 }
