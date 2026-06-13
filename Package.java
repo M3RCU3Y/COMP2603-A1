@@ -36,6 +36,7 @@ public class Package {
         // dimensions
         // destination
         // sender
+
         if (senderName == null || senderName.equals("")) {
             throw new IllegalArgumentException("Sender name must not be null or empty");
         }
@@ -113,26 +114,17 @@ public class Package {
     }
 
     // --- Computed methods ---
-
-    /**
-     * TODO M5: Return lengthCm * widthCm * heightCm
-     */
+    // M5 
     public int getVolumeCm3() {
-        return 0; // TODO M5
+        return lengthCm * widthCm * heightCm;
     }
 
-    /**
-     * TODO M5: Return getVolumeCm3() / 5000.0
-     */
     public double getVolumetricWeightKg() {
-        return 0.0; // TODO M5
+        return getVolumeCm3() / 5000.0;
     }
 
-    /**
-     * TODO M5: Return Math.max(weightKg, getVolumetricWeightKg())
-     */
     public double getBillableWeightKg() {
-        return 0.0; // TODO M5
+        return Math.max(weightKg, getVolumetricWeightKg());
     }
 
     /**
@@ -143,18 +135,59 @@ public class Package {
      *   4. If declaredValue > 0: cost += declaredValue * 0.015
      *   5. Round: Math.round(cost * 100) / 100.0
      */
+
     public double getShippingCost() {
-        return 0.0; // TODO M6
+    double ratePerKg;
+
+    switch (destination) {
+        case "Trinidad":
+            ratePerKg = 8.00;
+            break;
+        case "Barbados":
+            ratePerKg = 12.50;
+            break;
+        case "Jamaica":
+            ratePerKg = 15.00;
+            break;
+        case "Antigua":
+            ratePerKg = 18.00;
+            break;
+        case "Grenada":
+            ratePerKg = 10.00;
+            break;
+        default:
+            ratePerKg = 0.0;
+            break;
     }
 
-    /**
-     * TODO M7: Return a string in this format:
-     *   "PKG-0001  Alice -> Bob  Trinidad  5.00 kg  $40.00"
-     * If fragile, append "  [FRAGILE]" at the end.
-     * Use String.format for formatting.
-     */
+        double cost = getBillableWeightKg() * ratePerKg;
+
+        if (isFragile) {
+            cost = cost * 1.25;
+        }
+
+        if (declaredValue > 0) {
+            cost = cost + declaredValue * 0.015;
+        }
+
+        return Math.round(cost * 100) / 100.0;
+    }
+
     @Override
     public String toString() {
-        return ""; // TODO M7
+        String text = String.format("%s %s -> %s %s %.2f kg $%.2f",
+                trackingId,
+                senderName,
+                receiverName,
+                destination,
+                getBillableWeightKg(),
+                getShippingCost());
+
+        if (isFragile) {
+            text = text + " [FRAGILE]";
+        }
+
+        return text;
     }
 }
+
