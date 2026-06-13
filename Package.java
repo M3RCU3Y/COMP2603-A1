@@ -81,10 +81,36 @@ public class Package {
     }
 
     // --- Getters ---
-    // TODO M4: Write getters for ALL fields:
-    //   getTrackingId(), getSenderName(), getReceiverName(), getWeightKg(),
-    //   getLengthCm(), getWidthCm(), getHeightCm(), getDestination(),
-    //   isFragile(), getDeclaredValue()
+    public String getTrackingId() {
+        return trackingId;
+    }
+    public String getSenderName() {
+        return senderName;
+    }
+    public String getReceiverName() {
+        return receiverName;
+    }
+    public double getWeightKg() {
+        return weightKg;
+    }
+    public int getLengthCm() {
+        return lengthCm;
+    }
+    public int getWidthCm() {
+        return widthCm;
+    }
+    public int getHeightCm() {
+        return heightCm;
+    }
+    public String getDestination() {
+        return destination;
+    }
+    public boolean isFragile() {
+        return isFragile;
+    }
+    public double getDeclaredValue() {
+        return declaredValue;
+    }
 
     // --- Computed methods ---
 
