@@ -6,32 +6,29 @@ import java.util.ArrayList;
  */
 public class FreightTerminal {
 
-    // TODO M1: These fields are declared but not yet initialised.
-    // Your constructor (M2) must initialise them.
     private String terminalName;
     private ArrayList<Package> pendingPackages;
     private ArrayList<Container> activeContainers;
     private ArrayList<Container> dispatchedContainers;
 
-    /**
-     * TODO M2: Initialise terminalName and all three ArrayLists.
-     */
+    // M2: constructor
     public FreightTerminal(String terminalName) {
-        // TODO M2
+        this.terminalName = terminalName;
+        this.pendingPackages = new ArrayList<Package>();
+        this.activeContainers = new ArrayList<Container>();
+        this.dispatchedContainers = new ArrayList<Container>();
     }
 
-    /**
-     * TODO M4: Add a non-null package to pendingPackages.
-     */
+    // M4: receive a package if it is not null
     public void receivePackage(Package p) {
-        // TODO M4
+        if (p != null) {
+            pendingPackages.add(p);
+        }
     }
 
-    /**
-     * TODO M4: Return the size of pendingPackages.
-     */
+    // M4: number of packages waiting to be packed
     public int getPendingCount() {
-        return 0; // TODO M4
+        return pendingPackages.size();
     }
 
     /**
