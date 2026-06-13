@@ -4,12 +4,10 @@ public class Container {
 
     // M1 - static counter starts at 1
     private static int nextContainerId = 1;
-
     private String containerId;
     private String destination;
     private double maxWeightKg;
     private ArrayList<Package> packages;
-
 
     // M2: full constructor
     public Container(String destination, double maxWeightKg) {
@@ -17,11 +15,9 @@ public class Container {
         if (destination == null) {
             throw new IllegalArgumentException("Destination must not be null");
         }
-
         if (maxWeightKg <= 0) {
             throw new IllegalArgumentException("Max weight must be greater than 0");
         }
-
         this.containerId = String.format("CNT-%03d", nextContainerId);
         nextContainerId++;
 
@@ -39,49 +35,59 @@ public class Container {
     public String getContainerId() {
         return containerId;
     }
+
     public String getDestination() {
         return destination;
     }
+
     public double getMaxWeightKg() {
         return maxWeightKg;
     }
 
-
-
-
+    // M8: add package if it is valid for this container
     public boolean addPackage(Package p) {
-        return false; // TODO M8
+
+        if (p == null) {
+            return false;
+        }
+        if (!p.getDestination().equals(destination)) {
+            return false;
+        }
+        if (getCurrentWeightKg() + p.getWeightKg() > maxWeightKg) {
+            return false;
+        }
+        packages.add(p);
+        return true;
     }
 
 
-
-    
-    /**
-     * TODO M8: Return the sum of all packages' weightKg.
-     */
+    // M8: sum actual package weight, not billable weight
     public double getCurrentWeightKg() {
-        return 0.0; // TODO M8
+        double total = 0.0;
+        for (Package p : packages) {
+            total = total + p.getWeightKg();
+        }
+
+        return total;
     }
 
-    /**
-     * TODO M8: Return maxWeightKg - getCurrentWeightKg()
-     */
+    //M8: remaining actual weight capacity
     public double getRemainingCapacityKg() {
-        return 0.0; // TODO M8
+        return maxWeightKg - getCurrentWeightKg();
     }
-
-    /**
-     * TODO M8: Return the number of packages in this container.
-     */
-    public int getPackageCount() {
-        return 0; // TODO M8
-    }
-
-    /**
-     * TODO M8: Return the sum of all packages' getShippingCost().
-     */
+    // M8: sum the shipping costs of all packages
     public double getTotalRevenue() {
-        return 0.0; // TODO M8
+        double total = 0.0;
+        for (Package p : packages) {
+            total = total + p.getShippingCost();
+        }
+
+        return total;
+    }
+
+    // M8: number of packages inside
+    public int getPackageCount() {
+        return packages.size();
     }
 
     /**
